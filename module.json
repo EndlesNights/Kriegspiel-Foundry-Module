@@ -1,7 +1,8 @@
 {
-    "id":"kriegspiel",
-    "name":"kriegspiel",
+    "id":"kriegspielSupportModule",
+    "name":"kriegspielSupportModule",
     "title": "Kriegspiel Support Module",
+    "version": "0.0.0",
     "description": "",
     "compatibility": {
         "minimum": 10,
@@ -18,5 +19,5 @@
     ],
     "url": "https://github.com/EndlesNights/Kriegspiel-Foundry-Module",
     "manifest": "https://raw.githubusercontent.com/EndlesNights/Kriegspiel-Foundry-Module/main/module.json",
-    "download": ""
+    "download": "https://github.com/EndlesNights/Kriegspiel-Foundry-Module/archive/0.0.0.zip"
 }

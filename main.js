@@ -1,4 +1,4 @@
-const MODULE_ID = "kriegspiel";
+const MODULE_ID = "kriegspielSupportModule";
 
 Hooks.once("init", async function() {
     game.settings.register( MODULE_ID, "hiddenDrawings",{
@@ -8,7 +8,6 @@ Hooks.once("init", async function() {
         config: true,
         type: Boolean,
         default: true,
-        visible: game.user.isGM,
     });
 });
 
