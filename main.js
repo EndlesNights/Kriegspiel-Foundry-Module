@@ -1,6 +1,8 @@
 const MODULE_ID = "kriegspielSupportModule";
+import {kriegDice} from "./scripts/dice.js";
 
 Hooks.once("init", async function() {
+    game.KriegDice = kriegDice;
     game.settings.register( MODULE_ID, "hiddenDrawings",{
         name: "Hidden GM Drawings",
         hint: "Automaticly Hide GM Drawings",
