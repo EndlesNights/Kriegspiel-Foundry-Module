@@ -2,7 +2,7 @@
     "id":"kriegspielSupportModule",
     "name":"kriegspielSupportModule",
     "title": "Kriegspiel Support Module",
-    "version": "0.0.0",
+    "version": "0.1.0",
     "description": "",
     "compatibility": {
         "minimum": 10,
@@ -17,7 +17,15 @@
     "esmodules": [
         "./main.js"
     ],
+    "packs":[
+        {
+            "name": "utility-macros",
+            "label": "Utility Macros",
+            "path": "./packs/utility-macros.db",
+            "type": "Macro"
+        }
+    ],
     "url": "https://github.com/EndlesNights/Kriegspiel-Foundry-Module",
     "manifest": "https://raw.githubusercontent.com/EndlesNights/Kriegspiel-Foundry-Module/main/module.json",
-    "download": "https://github.com/EndlesNights/Kriegspiel-Foundry-Module/archive/0.0.0.zip"
+    "download": "https://github.com/EndlesNights/Kriegspiel-Foundry-Module/archive/0.1.0.zip"
 }
