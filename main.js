@@ -27,27 +27,39 @@ Hooks.once("init", async function() {
     });
 
     //Limit players vission of other players drawings by overriding the Drawing.prototype._refresh()
+
     libWrapper.register(
         MODULE_ID,
-        "Drawing.prototype._refresh",
-        _drawingRefresh
+        "Drawing.prototype._applyRenderFlags",
+        _drawingApplyRenderFlags
     );
-
+    
 });
 
 /**
- * Option to limit players vission of other players drawings by overriding the Drawing.prototype._refresh()
+ * Option to limit players vission of other players drawings by overriding the Drawing.prototype._applyRenderFlags(flags)
  * @param {method} wrapped Drawing.prototype._refresh
- * @param {object} options  
- * @returns 
+ * @param {object} flags  
  */
-function _drawingRefresh(wrapped, options){
-    wrapped(options);
-    if(!game.settings.get(MODULE_ID, "limitedPlayerDrawingsVission")) return;
-    if(this.document.author.isGM) return;
-    this.visible = (this.document.author.id === game.user.id || game.user.isGM);
-    return;
-}
+  function _drawingApplyRenderFlags(wrapped, flags) {
+    
+    if ( flags.refreshState ){
+        const {hidden, locked} = this.document;
+
+        if(!game.settings.get(MODULE_ID, "limitedPlayerDrawingsVission")) return wrapped(flags);;
+        if(this.document.author.isGM) return wrapped(flags);
+
+        this.visible = (game.user.isGM || this.document.author.id === game.user.id);
+        if(this.visible){
+            return wrapped(flags);
+        }
+        
+        this.frame.border.visible = this.controlled || this.hover || this.layer.highlightObjects;
+        this.frame.handle.visible = this.controlled && !locked;
+    } else {
+        return wrapped(flags);
+    }
+  }
 
 Hooks.on('preCreateDrawing', (drawing) => {
     if(game.user.isGM && game.settings.get(MODULE_ID, "hiddenGMDrawings")){
@@ -65,9 +77,8 @@ Hooks.on('updateSetting', (settings) => {
     //soft refresh all the drawing on the page when the setting updates so that the entire page and all other objects do not need to be reloaded
     if(settings.key = `${MODULE_ID}.limitedPlayerDrawingsVission`){
         for(const d of canvas.drawings.placeables){
-            d._refresh();
+            d._applyRenderFlags({refreshState:true, refreshMesh:true});
         }
-
     }
 });
 
